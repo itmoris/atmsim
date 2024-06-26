@@ -19,8 +19,8 @@ public class ConnectionPool implements AutoCloseable {
     private static final String driver = PropertyUtils.getProperty("db.driver");
     private static final String username = PropertyUtils.getProperty("db.username");
     private static final String password = PropertyUtils.getProperty("db.password");
-    private static final int defaultMaxConnections = Integer.parseInt(PropertyUtils.getProperty("db.maxConnections"));
-    private static final int defaultMinConnections = Integer.parseInt(PropertyUtils.getProperty("db.minConnections"));
+    private static final int defaultMaxConnections = Integer.parseInt(PropertyUtils.getProperty("db.pool.maxConnections"));
+    private static final int defaultMinConnections = Integer.parseInt(PropertyUtils.getProperty("db.pool.minConnections"));
 
     public ConnectionPool() throws SQLException {
         this(defaultMaxConnections, defaultMinConnections);
