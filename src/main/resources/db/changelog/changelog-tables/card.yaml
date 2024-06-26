@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: aibragimov
+      changes:
+        - createTable:
+            catalogName: public
+            tableName: cards
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    references: users(id)
+                    foreignKeyName: "fk_cards_users"
+                    nullable: false
+              - column:
+                  name: number
+                  type: VARCHAR(16)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: expired
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cvc
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
