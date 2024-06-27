@@ -6,10 +6,13 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Data
+@Builder
+@RequiredArgsConstructor
 public class Transaction {
-    private long id;
-    private Account account;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private TransactionType type;
+    private final long id;
+    private final long accountId;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    private final TransactionType type;
 }

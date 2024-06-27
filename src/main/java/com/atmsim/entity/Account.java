@@ -4,11 +4,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
+@Data
+@Builder
+@RequiredArgsConstructor
 public class Account {
-    private long id;
-    private double balance;
-    private String pin;
-    private List<Transaction> transactions;
+    private final long id;
+    private final long cardId;
+    private final double balance;
+    private final String pin;
 }

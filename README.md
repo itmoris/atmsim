@@ -6,7 +6,7 @@ The banking API is needed to register users and open accounts for them.
 ATM API is required to perform basic balance operations: deposits, withdrawals, checks, transfers.  
 
 ### Technologies used
-- **Java:** Core, Collections, Multithreading, java.util.concurrent
+- **Java:** Core, Collections, Generics, Multithreading, java.util.concurrent
 - **Database:** SQL, JDBC, Liquibase, Embedded Database/H2
 - **Build Tool:** Maven
 - **Containerization:** Docker, Docker Compose

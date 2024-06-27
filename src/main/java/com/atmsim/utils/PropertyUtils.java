@@ -1,13 +1,15 @@
 package com.atmsim.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PropertyUtils {
     private static final Properties properties;
-
-    private PropertyUtils() {}
 
     static {
         ClassLoader classLoader = PropertyUtils.class.getClassLoader();

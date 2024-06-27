@@ -21,12 +21,12 @@ databaseChangeLog:
                     foreignKeyName: "fk_transactions_accounts"
                     validateForeignKey: true
               - column:
-                  name: startTime
+                  name: start_time
                   type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
-                  name: endTime
+                  name: end_time
                   type: TIMESTAMP
                   constraints:
                     nullable: false

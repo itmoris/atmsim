@@ -40,6 +40,9 @@ public class ConnectionPool implements AutoCloseable {
     }
 
     public synchronized Connection getConnection() throws SQLException {
+        log.trace("Getting connection, available = {}, active = {}",
+                connections.size(), activeConnections.size());
+
         if (size() < maxConnections) {
             Connection newConnection = createConnection();
             activeConnections.add(newConnection);
@@ -53,16 +56,29 @@ public class ConnectionPool implements AutoCloseable {
         return connection;
     }
 
+    @Override
+    public void close() throws Exception {
+        log.trace("Destroying connection pool, available = {}, active = {}",
+                connections.size(), activeConnections.size());
+
+        for (Connection connection : connections) {
+            connection.close();
+        }
+    }
+
     private synchronized void release(Connection connection) {
         activeConnections.remove(connection);
         connections.add(connection);
+        log.trace("Releasing connection, available = {}, active = {}",
+                connections.size(), activeConnections.size());
         notify();
     }
 
     private Connection createConnection() throws SQLException {
         Connection connection = DriverManager.getConnection(url, username, password);
         Class<? extends Connection> aClass = connection.getClass();
-
+        log.trace("Created new connection, available = {}, active = {}",
+                connections.size(), activeConnections.size());
         return (Connection) Proxy.newProxyInstance(
                 ConnectionPool.class.getClassLoader(),
                 new Class[]{Connection.class},
@@ -83,21 +99,12 @@ public class ConnectionPool implements AutoCloseable {
     private Connection waitConnection() {
         try {
             while (true) {
-                System.out.println("Before wait: " + connections.size());
                 wait();
-                System.out.println("After wait: " + connections.size());
                 Connection connection = connections.poll();
                 if (Objects.nonNull(connection)) return connection;
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void close() throws Exception {
-        for (Connection connection : activeConnections) {
-            connection.close();
         }
     }
 
